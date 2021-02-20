@@ -1,0 +1,8 @@
+# docker files
+docker/
+
+# virtualenvs
+venv/
+
+# temp files.
+tmp/
