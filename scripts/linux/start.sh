@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Activate virtual env
+source venv/bin/activate
+
 # Create environment variables.
 export DJANGO_SETTINGS_MODULE="core.settings.localhost"
 export DEBUG=False
