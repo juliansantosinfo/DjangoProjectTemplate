@@ -17,19 +17,17 @@ fi
 # create virtual env
 echo ""
 echo "-----------------------------------------------------------------------"
-virtualenv venv --python=python3.8
+virtualenv venv
 source venv/bin/activate
 
 # Update and install requirements.
 echo ""
 echo "-----------------------------------------------------------------------"
-pip install --upgrade pip
 pip install -r ./requirements.txt
 
 # Migrate  database.
 echo ""
 echo "-----------------------------------------------------------------------"
-./manage.py makemigrations backend
 ./manage.py makemigrations
 ./manage.py migrate
 
