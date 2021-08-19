@@ -16,21 +16,13 @@ if [[ $deploy == "y" ]]
 fi
 
 # Migrate  database.
-heroku run ./manage.py makemigrations backend && ./manage.py migrate
+heroku run ./manage.py makemigrations && ./manage.py migrate
 
 # Install django-admin-interfaces themes.
 heroku run ./manage.py loaddata admin_interface_theme_foundation.json
 
 # Create superuser.
 heroku run ./manage.py admin_initialize
-
-# fakedatabase
-read -p "Generate fake database? : " fakedatabase
-if [[ $fakedatabase == "y" ]]
-    then
-        # Initialize fake database to customers/vendors.
-        heroku run ./manage.py customers_initialize_fakedatabase && ./manage.py vendors_initialize_fakedatabase
-fi
 
 # Show app info
 heroku apps:info

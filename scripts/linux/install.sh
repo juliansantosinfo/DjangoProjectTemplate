@@ -17,7 +17,7 @@ fi
 # create virtual env
 echo ""
 echo "-----------------------------------------------------------------------"
-virtualenv venv
+virtualenv venv --python=python3.9
 source venv/bin/activate
 
 # Update and install requirements.
