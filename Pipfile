@@ -5,16 +5,18 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-environ = "*"
 django-admin-interface = "*"
+django-environ = "*"
 gunicorn = "*"
-whitenoise = "*"
+pillow = "*"
 psycopg2 = "*"
+whitenoise = "*"
 
 [dev-packages]
 autopep8 = "*"
+ipython = "*"
 pylint = "*"
 pylint-django = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
