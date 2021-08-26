@@ -26,7 +26,7 @@ SECRET_KEY = 'am5$08-87humrc1#+)(yt5%ys35=7so214p$wz6-s!3(di2i#g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -134,3 +134,21 @@ STATICFILES_DIRS = [
 # Django-Admin-Interface
 # https://pypi.org/project/django-admin-interface/
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# Email Microsoft Outlook
+# ------------------------------------------
+# EMAIL_USE_SSL = False
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.office365.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'exxemple@outlook.com'
+# EMAIL_HOST_PASSWORD = 'password'
+
+# Email Google Gmail
+# ------------------------------------------
+# EMAIL_USE_SSL = False
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'exxemple@gmail.com'
+# EMAIL_HOST_PASSWORD = 'password'
