@@ -1,4 +1,5 @@
 # DjangoProjectTemplate
+Template for Django projects.
 
 ## Features
 
