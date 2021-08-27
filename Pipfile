@@ -10,6 +10,7 @@ django-environ = "*"
 gunicorn = "*"
 pillow = "*"
 psycopg2 = "*"
+waitress = "*"
 whitenoise = "*"
 
 [dev-packages]
