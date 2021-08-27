@@ -4,8 +4,8 @@ from core.settings.settings import *
 
 env = environ.Env(
     # set casting, default value
-    DEBUG=(bool, True),
-    SECRET_KEY=(str, 'mysecretkey'),
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, '{{secret_key}}'),
     ALLOWED_HOSTS=(list, "'*'"),
 )
 
