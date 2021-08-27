@@ -28,7 +28,6 @@ pip install -r ./requirements.txt
 # Migrate  database.
 echo ""
 echo "-----------------------------------------------------------------------"
-./manage.py makemigrations
 ./manage.py migrate
 
 # Collect static files.
@@ -47,12 +46,3 @@ if [[ $installtheme == "y" ]]
         ./manage.py loaddata admin_interface_theme_uswds.json
 fi
 ./manage.py loaddata admin_interface_theme_foundation.json
-
-# Create superuser.
-echo ""
-echo "-----------------------------------------------------------------------"
-read -p "Create superuser admin? : " createadmin
-if [[ $createadmin == "y" ]]
-    then
-        ./manage.py admin_initialize
-fi

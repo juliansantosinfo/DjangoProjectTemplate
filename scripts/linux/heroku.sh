@@ -16,13 +16,10 @@ if [[ $deploy == "y" ]]
 fi
 
 # Migrate  database.
-heroku run ./manage.py makemigrations && ./manage.py migrate
+heroku run ./manage.py migrate
 
 # Install django-admin-interfaces themes.
 heroku run ./manage.py loaddata admin_interface_theme_foundation.json
-
-# Create superuser.
-heroku run ./manage.py admin_initialize
 
 # Show app info
 heroku apps:info
