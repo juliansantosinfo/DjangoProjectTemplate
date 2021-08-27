@@ -1,0 +1,21 @@
+FROM python:3.9
+
+ENV DJANGO_SETTINGS_MODULE=core.settings.docker
+ENV DEBUG=False
+ENV SECRET_KEY=''
+ENV ALLOWED_HOSTS=['*']
+
+WORKDIR /usr/srv/app
+
+COPY . /usr/srv/app
+
+RUN apt update && apt upgrade -y \ 
+    && pip install --no-cache-dir -r requirements.txt \ 
+    && ./manage.py migrate \ 
+    && ./manage.py collectstatic --noinput \ 
+    && ./manage.py loaddata admin_interface_theme_foundation.json \ 
+    && ./manage.py admin_initialize
+
+ENTRYPOINT gunicorn -b :8000 core.wsgi --log-file -
+
+EXPOSE 8000
