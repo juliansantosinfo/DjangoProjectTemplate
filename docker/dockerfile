@@ -1,21 +1,20 @@
 FROM python:3.9
 
-ENV DJANGO_SETTINGS_MODULE=core.settings.docker
+ENV DJANGO_SETTINGS_MODULE=core.settings.localhost
 ENV DEBUG=False
-ENV SECRET_KEY=''
-ENV ALLOWED_HOSTS=['*']
 
 WORKDIR /usr/srv/app
 
 COPY . /usr/srv/app
 
-RUN apt update && apt upgrade -y \ 
-    && pip install --no-cache-dir -r requirements.txt \ 
-    && ./manage.py migrate \ 
-    && ./manage.py collectstatic --noinput \ 
-    && ./manage.py loaddata admin_interface_theme_foundation.json \ 
-    && ./manage.py admin_initialize
+RUN apt update \ 
+    && apt upgrade -y \ 
+    && apt install libpq-dev \ 
+    && pip install --no-cache-dir -r ./requirements.txt \ 
+    && ./manage.py collectstatic --noinput
 
-ENTRYPOINT gunicorn -b :8000 core.wsgi --log-file -
+ENTRYPOINT ./manage.py migrate \ 
+           && ./manage.py loaddata admin_interface_theme_foundation.json \ 
+           && gunicorn -b :8000 core.wsgi --log-file -
 
 EXPOSE 8000

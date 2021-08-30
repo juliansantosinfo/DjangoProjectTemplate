@@ -6,12 +6,11 @@ services:
     image: postgres
     container_name: postgres
     hostname: postgres
-    network_mode: bridge
     restart: "always"
     environment: 
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: app
+      POSTGRES_DB: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes: 
       - ./database/postgresql/data:/var/lib/postgresql/data
@@ -24,16 +23,15 @@ services:
       dockerfile: ./docker/dockerfile
     container_name: app
     hostname: app
-    network_mode: bridge
     restart: always
     environment:
       DJANGO_SETTINGS_MODULE: 'core.settings.docker'
       DEBUG: 'False'
-      SECRET_KEY: ''
+      SECRET_KEY: 'django-insecure-+61paegv9m)ao(*#5#f0s@t_5sidy#$c6yfx3l*(p70yuf7%!e'
+      ALLOWED_HOSTS: '*'
     volumes: 
       - ./database:/usr/srv/app/database
     ports:
     - 8000:8000
     depends_on:
       - postgres
-      
