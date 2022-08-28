@@ -13,4 +13,6 @@ if [[ $cleaninstall == "y" ]]
         rm -rf ./db.sqlite3
         echo "Removing temp files"
         rm -rf ./tmp/*
+        echo "Removing temp files"
+        rm -rf ./logs/*.log
 fi
