@@ -16,7 +16,7 @@ if [[ $deploy == "y" ]]
 fi
 
 # Migrate  database.
-heroku run ./manage.py migrate
+heroku run ./manage.py makemigrations backend && ./manage.py migrate
 
 # Install django-admin-interfaces themes.
 heroku run ./manage.py loaddata admin_interface_theme_foundation.json
@@ -24,7 +24,7 @@ heroku run ./manage.py loaddata admin_interface_theme_foundation.json
 # Show app info
 heroku apps:info
 
-# fakedatabase
+# Open app
 read -p "Open app in browser? : " open
 if [[ $open == "y" ]]
     then

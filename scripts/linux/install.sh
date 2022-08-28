@@ -12,12 +12,14 @@ if [[ $cleaninstall == "y" ]]
         rm -rf ./static
         echo "Removing database"
         rm -rf ./db.sqlite3
+        echo "Removing temp files"
+        rm -rf ./tmp/*
 fi
 
 # create virtual env
 echo ""
 echo "-----------------------------------------------------------------------"
-virtualenv venv --python=python3.9
+virtualenv venv
 source venv/bin/activate
 
 # Update and install requirements.
@@ -28,6 +30,7 @@ pip install -r ./requirements.txt
 # Migrate  database.
 echo ""
 echo "-----------------------------------------------------------------------"
+./manage.py makemigrations
 ./manage.py migrate
 
 # Collect static files.
@@ -44,5 +47,5 @@ if [[ $installtheme == "y" ]]
         ./manage.py loaddata admin_interface_theme_django.json
         ./manage.py loaddata admin_interface_theme_bootstrap.json
         ./manage.py loaddata admin_interface_theme_uswds.json
+        ./manage.py loaddata admin_interface_theme_foundation.json
 fi
-./manage.py loaddata admin_interface_theme_foundation.json
