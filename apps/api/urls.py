@@ -15,6 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+
+# Add your url routes here.
 
 urlpatterns = [
+    path('', include(router.urls)),
+    path('auth/', include('rest_framework.urls')),
+    path('auth2/', include('dj_rest_auth.urls')),
 ]
