@@ -7,6 +7,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, '{{secret_key}}'),
     ALLOWED_HOSTS=(list, "'*'"),
+    CSRF_TRUSTED_ORIGINS=(list, "'https://*.127.0.0.1',"),
 )
 
 DEBUG = env('DEBUG')
@@ -14,3 +15,9 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+
+CSRF_TRUSTED_ORIGINS=env('CSRF_TRUSTED_ORIGINS')
+
+DATABASES = {
+    'default': env.db(),
+}
