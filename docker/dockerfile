@@ -1,7 +1,15 @@
 FROM python:3.12.3
 
-ENV DJANGO_SETTINGS_MODULE=core.settings.localhost
+ENV DJANGO_SETTINGS_MODULE=core.settings.docker
 ENV DEBUG=False
+ENV SECRET_KEY=YOUR_SECURE_SECRET_KEY_HERE
+ENV ALLOWED_HOSTS=127.0.0.1,localhost
+ENV CSRF_TRUSTED_ORIGINS=http://localhost:8000,https://localhost:8000
+ENV DATABASE_NAME=postgres
+ENV DATABASE_USER=postgres
+ENV DATABASE_PASSWORD=postgres
+ENV DATABASE_HOST=postgres
+ENV DATABASE_PORT=5432
 
 WORKDIR /usr/srv/app
 
@@ -9,10 +17,9 @@ COPY . /usr/srv/app
 
 RUN apt update \ 
     && apt upgrade -y \ 
-    && apt install libpq-dev gettext\ 
-    && pip install --no-cache-dir -r ./requirements.txt \ 
-    && ./manage.py collectstatic --noinput
+    && apt install libpq-dev gettext \
+    && pip install --no-cache-dir -r ./requirements.txt
 
-ENTRYPOINT ./scripts/docker.entrypoint.sh
+ENTRYPOINT ["./scripts/linux/docker.entrypoint.sh"]
 
 EXPOSE 8000
