@@ -12,23 +12,31 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load .env file.
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '{{secret_key}}'
+SECRET_KEY = os.environ.get("SECRET_KEY", "YOUR SECRETE KEY HERE")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*',]
 
-CSRF_TRUSTED_ORIGINS = ['https://*.127.0.0.1',]
+CSRF_TRUSTED_ORIGINS = [
+    'http://*.127.0.0.1', 
+    'https://*.127.0.0.1', 
+    'http://localhost', 
+    'https://localhost', 
+]
 
 
 # Application definition
@@ -39,15 +47,17 @@ INSTALLED_APPS = [
     'apps.backend',
     'admin_interface',
     'colorfield',
+    'django_filters',
+    'dj_rest_auth',
     'rest_framework',
     'rest_framework.authtoken',
-    'dj_rest_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -143,8 +153,57 @@ STATICFILES_DIRS = [
 ]
 
 # Media files
-MEDIA_URL='media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'web/media')
+MEDIA_URL='uploads/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'uploads')
+
+# Email
+EMAIL_USE_SSL = eval(os.environ.get("EMAIL_USE_SSL", "False"))
+EMAIL_USE_TLS = eval(os.environ.get("EMAIL_USE_TLS", "True"))
+EMAIL_HOST = os.environ.get("EMAIL_HOST", '')
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", '587'))
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", '')
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", '')
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': './logs/django.log',
+            'formatter': 'verbose'
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+# django-rest-framework
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+}
 
 # Django-Admin-Interface
 # https://pypi.org/project/django-admin-interface/

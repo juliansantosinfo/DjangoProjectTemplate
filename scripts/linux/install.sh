@@ -11,7 +11,8 @@ if [[ $cleaninstall == "y" ]]
         echo "Removing static files"
         rm -rf ./static
         echo "Removing database"
-        rm -rf ./db.sqlite3
+        rm -rf ./databases/default.db.sqlite3
+        rm -rf ./databases/development.db.sqlite3
         echo "Removing temp files"
         rm -rf ./tmp/*
 fi
@@ -19,7 +20,7 @@ fi
 # create virtual env
 echo ""
 echo "-----------------------------------------------------------------------"
-virtualenv venv
+python -m venv venv
 source venv/bin/activate
 
 # Update and install requirements.
@@ -37,6 +38,11 @@ echo "-----------------------------------------------------------------------"
 echo ""
 echo "-----------------------------------------------------------------------"
 ./manage.py collectstatic --noinput
+
+# Compile messages for locale
+echo ""
+echo "-----------------------------------------------------------------------"
+./manage.py compilemessages -l pt_BR
 
 # Install django-admin-interfaces themes.
 echo ""

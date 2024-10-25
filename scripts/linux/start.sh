@@ -30,4 +30,4 @@ export DEBUG=False
 export ALLOWED_HOSTS=*
 
 # start gunicorn server.
-gunicorn core.wsgi --bind 0.0.0.0 --workers=2 --log-file logs/gunicorn.log --log-level 'debug' --reload --name django_app &
+gunicorn core.wsgi --preload --reload --bind 0.0.0.0 --workers=2 --log-file logs/gunicorn.log --log-level 'debug' --name django_app &
