@@ -39,5 +39,5 @@ $env:ALLOWED_HOSTS = "*"
 
 # start gunicorn server.
 # replace '..' with the path to your executable
-Invoke-Expression "..gunicorn core.wsgi --preload --reload --bind 0.0.0.0 --workers=2 --log-file logs/gunicorn.log --log-level 'debug' --name django_app &"
+Invoke-Expression "..gunicorn core.wsgi --preload --reload --bind 0.0.0.0 --workers=2 --log-file logs/gunicorn.log --log-level 'info' --name django_app &"
 
